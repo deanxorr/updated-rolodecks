@@ -15,6 +15,15 @@
     <td><%= link_to "#{c.first_name} #{c.last_name}", c %></td>
     <td><%= c.email %></td>
     <td><%= number_to_phone(c.phone) %></td>
+
+
+    <td id=<%="#{c.first_name}#{c.last_name}"%>>
+      <% if c.is_connected?(Contact.find(session[:contact_id]))  %>
+      Connected
+      <% else %>
+      <%= link_to "Connect to #{c.first_name}", connections_path(current_id: session[:contact_id].to_i, contact_id: c.id), class: 'btn btn-success', method: :post %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626042314) do
+ActiveRecord::Schema.define(:version => 20120703194003) do
+
+  create_table "contact_connections", :id => false, :force => true do |t|
+    t.integer "contact_a_id", :null => false
+    t.integer "contact_b_id", :null => false
+  end
 
   create_table "contacts", :force => true do |t|
     t.string   "first_name"

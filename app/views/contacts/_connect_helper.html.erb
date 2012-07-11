@@ -1,0 +1,7 @@
+<% if [:contact_id] == session[:contact_id] %>
+	This is you!
+<% elsif @contact.is_connected?(Contact.find(session[:contact_id]))%>
+  Connected    	
+<% else %>
+  <%= link_to "Connect to #{@contact.first_name}", connections_path(curr_id: session[:contact_id], id: @contact.id),class: 'btn btn-success', method: :post %>
+<% end %>

@@ -89,4 +89,40 @@ describe Contact do
       Contact.all.should == [@contact_newer, @contact_older]
     end
   end
+
+  describe "connections to other contacts" do
+    let(:contact_self) do
+      Contact.create! do |contact|
+        contact.email = Random.email
+        contact.first_name = Random.firstname
+        contact.last_name = Random.lastname
+        contact.phone = Random.phone
+      end
+    end
+    let(:contact_other_connected) do
+      Contact.create! do |contact|
+        contact.email = Random.email
+        contact.first_name = Random.firstname
+        contact.last_name = Random.lastname
+        contact.phone = Random.phone
+      end
+    end
+    let(:contact_not_connected) do
+      Contact.create! do |contact|
+        contact.email = Random.email
+        contact.first_name = Random.firstname
+        contact.last_name = Random.lastname
+        contact.phone = Random.phone
+      end
+    end
+    it "should be able to return true if connected to a given contact" do
+      contact_self.connect(contact_other_connected) ## need to add connect method
+      contact_self.is_connected?(contact_other_connected).should be_true
+      contact_other_connected.is_connected?(contact_self).should be_true
+    end
+    it "should be able to return false if not connected to a given contact" do
+      contact_self.is_connected?(contact_not_connected).should_not be_true
+    end
+  end
+
 end
